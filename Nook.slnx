@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="src/Nook.Core/Nook.Core.csproj" />
+  <Project Path="src/Nook.App/Nook.App.csproj" />
+  <Project Path="tests/Nook.Tests/Nook.Tests.csproj" />
+  <Project Path="tests/Nook.UiTests/Nook.UiTests.csproj" />
+</Solution>

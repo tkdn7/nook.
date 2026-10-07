@@ -1,0 +1,62 @@
+<Window x:Class="Nook.App.Views.WidgetWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="clr-namespace:Nook.App.Controls"
+        Width="300" Height="200" MinWidth="180" MinHeight="140" MaxWidth="640" MaxHeight="480" WindowStyle="None" AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize" ShowInTaskbar="False" UseLayoutRounding="True"
+        Foreground="{Binding Ink}" FontFamily="{StaticResource BodyFont}" FontSize="14">
+  <Window.Resources>
+    <!-- A nonzero alpha keeps the invisible grip targetable in a layered Win32 window. -->
+    <Style x:Key="Grip" TargetType="Thumb"><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Thumb"><Border Background="#01000000"/></ControlTemplate></Setter.Value></Setter><Setter Property="IsHitTestVisible" Value="{Binding CanResize}"/></Style>
+  </Window.Resources>
+  <Grid x:Name="WidgetRoot">
+    <Border x:Name="Surface" Margin="6" Background="{Binding Background}" CornerRadius="{Binding Radius}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" MouseLeftButtonDown="Surface_MouseDown">
+      <Border.Style><Style TargetType="Border"><Setter Property="Padding" Value="16,10,16,12"/><Style.Triggers><DataTrigger Binding="{Binding IsCircular}" Value="True"><Setter Property="Padding" Value="0"/></DataTrigger></Style.Triggers></Style></Border.Style>
+      <Border.Effect><DropShadowEffect Color="#000000" Opacity="0.16" BlurRadius="8" ShadowDepth="2"/></Border.Effect>
+      <Grid><Grid x:Name="CardContent" Visibility="{Binding IsCard, Converter={StaticResource BoolVisibility}}"><Grid.RowDefinitions><RowDefinition Height="28"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <Grid x:Name="TitleArea" Background="Transparent" MouseLeftButtonDown="Title_MouseDown"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="28"/></Grid.ColumnDefinitions>
+          <Grid Margin="0,0,4,0"><Grid.ColumnDefinitions><ColumnDefinition Width="22"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><controls:FluentIcon Glyph="{Binding Icon}" Width="16" Height="16" Foreground="{Binding MutedInk}" VerticalAlignment="Center"/><TextBlock Grid.Column="1" Text="{Binding Title}" FontSize="12" FontWeight="Medium" Foreground="{Binding MutedInk}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/></Grid>
+          <Button x:Name="MenuButton" Grid.Column="1" Foreground="{Binding Ink}" FontSize="18" Padding="0" Margin="0" Background="Transparent" BorderThickness="0" Click="Menu_Click" ToolTip="위젯 메뉴" Opacity="0">
+            <controls:FluentIcon Glyph="more_horizontal" Width="20" Height="20" Foreground="{Binding Ink}"/>
+            <Button.Style><Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}"><Style.Triggers><Trigger Property="IsKeyboardFocused" Value="True"><Setter Property="Opacity" Value="1"/></Trigger></Style.Triggers></Style></Button.Style>
+          </Button>
+        </Grid>
+        <Grid x:Name="ValueArea" Grid.Row="1"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock x:Name="ValueText" Text="{Binding Value}" Foreground="{Binding Ink}" FontFamily="{StaticResource NumberFont}" FontSize="{Binding ValueFontSize}" FontWeight="SemiBold" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/><controls:FluentIcon Grid.Column="1" Glyph="weather_partly_cloudy_day" Width="36" Height="36" Foreground="{Binding Ink}" Visibility="{Binding IsWeather, Converter={StaticResource BoolVisibility}}" VerticalAlignment="Center"/></Grid>
+        <TextBlock x:Name="DetailText" Grid.Row="2" Text="{Binding Detail}" Visibility="{Binding ShowDetails, Converter={StaticResource BoolVisibility}}" Foreground="{Binding MutedInk}" FontSize="12" TextTrimming="CharacterEllipsis" Margin="0,0,0,8"/>
+        <StackPanel x:Name="SupplementArea" Grid.Row="3">
+          <TextBlock Text="{Binding WeatherLocation}" Visibility="{Binding IsWeather, Converter={StaticResource BoolVisibility}}" Foreground="{Binding MutedInk}" FontSize="11" Margin="0,0,0,4"/>
+          <controls:SmoothProgressBar TargetValue="{Binding Percentage, Mode=OneWay}" Minimum="0" Maximum="100" Height="5" BorderThickness="0" Foreground="{DynamicResource AccentBrush}" Background="{DynamicResource LineBrush}" Visibility="{Binding ShowBar, Converter={StaticResource BoolVisibility}}"/>
+          <Grid x:Name="ChartArea" Visibility="{Binding ShowGraph, Converter={StaticResource BoolVisibility}}" Height="72"><controls:HistoryChart x:Name="Chart" Points="{Binding History}" Accent="{DynamicResource AccentBrush}" GridBrush="{DynamicResource LineBrush}"/></Grid>
+          <ItemsControl ItemsSource="{Binding Forecast}" Visibility="{Binding ShowForecast, Converter={StaticResource BoolVisibility}}" Margin="0,8,0,0"><ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Columns="4"/></ItemsPanelTemplate></ItemsControl.ItemsPanel><ItemsControl.ItemTemplate><DataTemplate><StackPanel HorizontalAlignment="Center"><TextBlock Text="{Binding Time}" FontSize="11" HorizontalAlignment="Center"/><controls:FluentIcon Glyph="{Binding Icon}" Width="24" Height="24" Margin="0,6,0,4" Foreground="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Ink}"/><TextBlock Text="{Binding Temperature}" FontFamily="{StaticResource NumberFont}" FontSize="16" HorizontalAlignment="Center"/></StackPanel></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+          <TextBlock Text="{Binding Footer}" FontSize="11" Foreground="{Binding MutedInk}" Visibility="{Binding IsExpanded, Converter={StaticResource BoolVisibility}}" Margin="0,8,0,0"/>
+        </StackPanel>
+      </Grid>
+      <controls:CircularLayoutPanel x:Name="CircleContent" Visibility="{Binding IsCircular, Converter={StaticResource BoolVisibility}}">
+        <controls:CircularUsageArc x:Name="CircleArc" Percentage="{Binding Percentage}" Ink="{Binding Ink}" TrackBrush="{DynamicResource LineBrush}" IsHitTestVisible="False"/>
+        <StackPanel Tag="title" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#01000000" MouseLeftButtonDown="Title_MouseDown">
+          <controls:FluentIcon Glyph="{Binding Icon}" Width="16" Height="16" Foreground="{Binding MutedInk}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+          <TextBlock Text="{Binding Title}" FontSize="12" FontWeight="Medium" Foreground="{Binding MutedInk}" VerticalAlignment="Center"/>
+        </StackPanel>
+        <TextBlock Tag="value" Text="{Binding Value}" Foreground="{Binding Ink}" FontFamily="{StaticResource NumberFont}" FontSize="{Binding CircleValueFontSize}" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Tag="detail" Text="{Binding Detail}" Foreground="{Binding MutedInk}" FontSize="11" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ShowCircleDetail, Converter={StaticResource BoolVisibility}}"/>
+        <Button x:Name="CircleMenuButton" Tag="menu" Foreground="{Binding Ink}" Padding="0" Margin="0" Background="Transparent" BorderThickness="0" Click="Menu_Click" ToolTip="위젯 메뉴" Opacity="0"><controls:FluentIcon Glyph="more_horizontal" Width="18" Height="18" Foreground="{Binding Ink}"/></Button>
+      </controls:CircularLayoutPanel></Grid>
+    </Border>
+    <Grid Visibility="{Binding IsCard, Converter={StaticResource BoolVisibility}}">
+    <Thumb Style="{StaticResource Grip}" Tag="T" Height="8" VerticalAlignment="Top" Cursor="SizeNS" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+    <Thumb Style="{StaticResource Grip}" Tag="B" Height="8" VerticalAlignment="Bottom" Cursor="SizeNS" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+    <Thumb Style="{StaticResource Grip}" Tag="L" Width="8" HorizontalAlignment="Left" Cursor="SizeWE" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+    <Thumb Style="{StaticResource Grip}" Tag="R" Width="8" HorizontalAlignment="Right" Cursor="SizeWE" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+    <Thumb Style="{StaticResource Grip}" Tag="LT" Width="14" Height="14" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="SizeNWSE" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+    <Thumb Style="{StaticResource Grip}" Tag="RT" Width="14" Height="14" HorizontalAlignment="Right" VerticalAlignment="Top" Cursor="SizeNESW" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+    <Thumb Style="{StaticResource Grip}" Tag="LB" Width="14" Height="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Cursor="SizeNESW" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+    <Thumb Style="{StaticResource Grip}" Tag="RB" Width="14" Height="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Cursor="SizeNWSE" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+    </Grid>
+    <controls:CircularResizePanel Visibility="{Binding IsCircular, Converter={StaticResource BoolVisibility}}">
+      <Thumb Style="{StaticResource Grip}" Tag="T" Cursor="SizeNS" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+      <Thumb Style="{StaticResource Grip}" Tag="B" Cursor="SizeNS" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+      <Thumb Style="{StaticResource Grip}" Tag="L" Cursor="SizeWE" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+      <Thumb Style="{StaticResource Grip}" Tag="R" Cursor="SizeWE" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+      <Thumb Style="{StaticResource Grip}" Tag="LT" Cursor="SizeNWSE" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+      <Thumb Style="{StaticResource Grip}" Tag="RT" Cursor="SizeNESW" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+      <Thumb Style="{StaticResource Grip}" Tag="LB" Cursor="SizeNESW" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+      <Thumb Style="{StaticResource Grip}" Tag="RB" Cursor="SizeNWSE" DragDelta="Grip_DragDelta" DragCompleted="Grip_DragCompleted"/>
+    </controls:CircularResizePanel>
+  </Grid>
+</Window>

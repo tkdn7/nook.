@@ -1,0 +1,76 @@
+ .gitignore                                         |   6 [32m+[m
+ DESIGN_DIRECTIONS.md                               |  89 [32m+++++[m
+ Nook.slnx                                          |   6 [32m+[m
+ README.md                                          | 124 [32m++++++[m
+ VALIDATION.md                                      | 119 [32m++++++[m
+ global.json                                        |   3 [32m+[m
+ scripts/build.ps1                                  |  22 [32m+[m
+ scripts/create-fluent-icon.ps1                     |  32 [32m++[m
+ scripts/create-icon.ps1                            |   1 [32m+[m
+ scripts/prepare-fonts.py                           |  43 [32m++[m
+ scripts/run.ps1                                    |   8 [32m+[m
+ src/Nook.App/App.xaml                              |   8 [32m+[m
+ src/Nook.App/App.xaml.cs                           |  64 [32m+++[m
+ src/Nook.App/Assets/Fonts/NunitoSans-ExtraBold.ttf | Bin [31m0[m -> [32m113528[m bytes
+ src/Nook.App/Assets/Fonts/NunitoSans-OFL.txt       |  93 [32m+++++[m
+ src/Nook.App/Assets/Fonts/NunitoSans-Regular.ttf   | Bin [31m0[m -> [32m113456[m bytes
+ src/Nook.App/Assets/Fonts/NunitoSans-SemiBold.ttf  | Bin [31m0[m -> [32m113544[m bytes
+ src/Nook.App/Assets/Fonts/Pretendard-LICENSE.txt   |  94 [32m+++++[m
+ src/Nook.App/Assets/Fonts/Pretendard-Medium.otf    | Bin [31m0[m -> [32m1584068[m bytes
+ src/Nook.App/Assets/Fonts/Pretendard-Regular.otf   | Bin [31m0[m -> [32m1574352[m bytes
+ src/Nook.App/Assets/Fonts/Pretendard-SemiBold.otf  | Bin [31m0[m -> [32m1583704[m bytes
+ src/Nook.App/Assets/Icons/LICENSE.txt              |  21 [32m+[m
+ src/Nook.App/Assets/Icons/add.svg                  |   3 [32m+[m
+ src/Nook.App/Assets/Icons/apps.svg                 |   3 [32m+[m
+ src/Nook.App/Assets/Icons/arrow_exit.svg           |   3 [32m+[m
+ src/Nook.App/Assets/Icons/board.svg                |   3 [32m+[m
+ src/Nook.App/Assets/Icons/checkmark.svg            |   3 [32m+[m
+ src/Nook.App/Assets/Icons/chevron_down.svg         |   3 [32m+[m
+ src/Nook.App/Assets/Icons/clock.svg                |   3 [32m+[m
+ src/Nook.App/Assets/Icons/data_usage.svg           |   3 [32m+[m
+ src/Nook.App/Assets/Icons/delete.svg               |   3 [32m+[m
+ src/Nook.App/Assets/Icons/developer_board.svg      |   3 [32m+[m
+ src/Nook.App/Assets/Icons/dismiss.svg              |   3 [32m+[m
+ src/Nook.App/Assets/Icons/eye.svg                  |   3 [32m+[m
+ src/Nook.App/Assets/Icons/lock_closed.svg          |   3 [32m+[m
+ src/Nook.App/Assets/Icons/more_horizontal.svg      |   3 [32m+[m
+ src/Nook.App/Assets/Icons/settings.svg             |   3 [32m+[m
+ .../Assets/Icons/weather_partly_cloudy_day.svg     |   3 [32m+[m
+ src/Nook.App/Assets/Icons/weather_sunny.svg        |   3 [32m+[m
+ src/Nook.App/Assets/nook.ico                       | Bin [31m0[m -> [32m5833[m bytes
+ src/Nook.App/Controls/CircularLayoutPanel.cs       |  48 [32m+++[m
+ src/Nook.App/Controls/CircularUsageArc.cs          |  46 [32m+++[m
+ src/Nook.App/Controls/ExpandableCard.cs            |  61 [32m+++[m
+ src/Nook.App/Controls/FluentIcon.cs                |  22 [32m+[m
+ src/Nook.App/Controls/HistoryChart.cs              |  34 [32m++[m
+ src/Nook.App/Controls/SmoothProgressBar.cs         |  17 [32m+[m
+ src/Nook.App/GlobalUsings.cs                       |   9 [32m+[m
+ src/Nook.App/Nook.App.csproj                       |  25 [32m++[m
+ src/Nook.App/Services/GpuCounter.cs                |  59 [32m+++[m
+ src/Nook.App/Services/Motion.cs                    |  32 [32m++[m
+ src/Nook.App/Services/NativeWindows.cs             | 100 [32m+++++[m
+ src/Nook.App/Services/SingleInstance.cs            |  59 [32m+++[m
+ src/Nook.App/Services/SystemMetricsService.cs      |  80 [32m++++[m
+ src/Nook.App/Services/ThemeService.cs              |  40 [32m++[m
+ src/Nook.App/Services/WindowCoordinator.cs         |  56 [32m+++[m
+ src/Nook.App/Themes/Controls.xaml                  | 149 [32m+++++++[m
+ src/Nook.App/Themes/Icons.xaml                     |  19 [32m+[m
+ src/Nook.App/ViewModels/AppViewModel.cs            | 134 [32m+++++++[m
+ src/Nook.App/ViewModels/RelayCommand.cs            |  10 [32m+[m
+ src/Nook.App/ViewModels/WidgetViewModel.cs         | 119 [32m++++++[m
+ src/Nook.App/Views/MainWindow.xaml                 |  85 [32m++++[m
+ src/Nook.App/Views/MainWindow.xaml.cs              | 243 [32m+++++++++++[m
+ src/Nook.App/Views/WidgetWindow.xaml               |  62 [32m+++[m
+ src/Nook.App/Views/WidgetWindow.xaml.cs            | 191 [32m+++++++++[m
+ src/Nook.App/app.manifest                          |  11 [32m+[m
+ src/Nook.Core/GpuAggregation.cs                    |  28 [32m++[m
+ src/Nook.Core/MagneticPlacement.cs                 |  73 [32m++++[m
+ src/Nook.Core/Metrics.cs                           |  52 [32m+++[m
+ src/Nook.Core/Models.cs                            | 135 [32m+++++++[m
+ src/Nook.Core/Nook.Core.csproj                     |   7 [32m+[m
+ src/Nook.Core/SettingsStore.cs                     |  82 [32m++++[m
+ tests/Nook.Tests/Nook.Tests.csproj                 |   4 [32m+[m
+ tests/Nook.Tests/Program.cs                        | 263 [32m++++++++++++[m
+ tests/Nook.UiTests/Nook.UiTests.csproj             |   4 [32m+[m
+ tests/Nook.UiTests/Program.cs                      | 445 [32m+++++++++++++++++++++[m
+ 75 files changed, 3588 insertions(+)

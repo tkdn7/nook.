@@ -1,0 +1,85 @@
+<Window x:Class="Nook.App.Views.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="clr-namespace:Nook.App.Controls"
+        Title="Nook" Width="1100" Height="780" MinWidth="900" MinHeight="640" WindowStartupLocation="CenterScreen" UseLayoutRounding="True"
+        Background="{DynamicResource PageBrush}" Foreground="{DynamicResource TextBrush}" FontFamily="{StaticResource BodyFont}" FontSize="14" Icon="/Nook;component/Assets/nook.ico">
+  <Grid Background="{DynamicResource PageBrush}">
+    <Grid.ColumnDefinitions><ColumnDefinition Width="190"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+    <Border Background="{DynamicResource SidebarBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="0,0,1,0">
+      <Grid Margin="16,28,16,20"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <StackPanel Margin="12,0,0,36"><TextBlock Text="nook." FontFamily="{StaticResource NumberFont}" FontSize="38" FontWeight="ExtraBold"/></StackPanel>
+        <StackPanel Grid.Row="1">
+          <Button x:Name="LibraryNav" Style="{StaticResource NavButton}" Click="Library_Click"><StackPanel Orientation="Horizontal"><controls:FluentIcon Glyph="apps" Foreground="{DynamicResource TextBrush}" Width="20" Height="20" Margin="0,0,10,0" VerticalAlignment="Center"/><TextBlock Text="위젯 라이브러리"/></StackPanel></Button>
+          <Button x:Name="ManageNav" Style="{StaticResource NavButton}" Click="Manage_Click"><StackPanel Orientation="Horizontal"><controls:FluentIcon Glyph="board" Foreground="{DynamicResource TextBrush}" Width="20" Height="20" Margin="0,0,10,0" VerticalAlignment="Center"/><TextBlock Text="내 위젯"/></StackPanel></Button>
+          <Button x:Name="SettingsNav" Style="{StaticResource NavButton}" Click="Settings_Click"><StackPanel Orientation="Horizontal"><controls:FluentIcon Glyph="settings" Foreground="{DynamicResource TextBrush}" Width="20" Height="20" Margin="0,0,10,0" VerticalAlignment="Center"/><TextBlock Text="설정"/></StackPanel></Button>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="12,0,0,0"><TextBlock Text="Nook 0.6" Style="{StaticResource MutedText}" FontSize="11" Margin="0,6,0,0"/></StackPanel>
+      </Grid>
+    </Border>
+    <Grid Grid.Column="1" Margin="32,28,32,16"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+      <Grid Margin="0,0,0,24"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <StackPanel><TextBlock x:Name="PageTitle" Text="위젯 라이브러리" FontSize="26" FontWeight="SemiBold"/><TextBlock x:Name="PageSubtitle" Visibility="Collapsed"/></StackPanel>
+      </Grid>
+      <ScrollViewer x:Name="PageScroll" Grid.Row="1" Style="{StaticResource SoftScrollViewer}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,10,0">
+        <StackPanel>
+          <StackPanel x:Name="LibraryPage">
+            <Grid Margin="0,0,0,20"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><Button x:Name="AddDemoButton" Grid.Column="1" Command="{Binding AddDemoCommand}" Style="{StaticResource PrimaryButton}" Margin="0"><StackPanel Orientation="Horizontal"><controls:FluentIcon Glyph="add" Width="16" Height="16" Margin="0,0,6,0" VerticalAlignment="Center"/><TextBlock Text="기본 위젯 3개 추가" VerticalAlignment="Center"/></StackPanel></Button></Grid>
+            <Grid Height="248"><Grid.ColumnDefinitions><ColumnDefinition Width="1.15*"/><ColumnDefinition Width="16"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+              <Border Style="{StaticResource Card}" Background="{DynamicResource ClockSurfaceBrush}" BorderThickness="0" Padding="20">
+                <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                  <TextBlock Text="시계" Foreground="{DynamicResource ClockMutedBrush}" FontSize="13"/>
+                  <StackPanel Grid.Row="1" VerticalAlignment="Center"><TextBlock Text="{Binding ClockPreviewValue}" FontFamily="{StaticResource NumberFont}" FontSize="60" FontWeight="SemiBold" Foreground="{DynamicResource ClockTextBrush}"/><TextBlock Text="{Binding ClockPreviewDate}" Foreground="{DynamicResource ClockMutedBrush}" FontSize="14" Margin="0,8,0,0"/></StackPanel>
+                  <Grid Grid.Row="2"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="시간과 오늘의 날짜" Foreground="{DynamicResource ClockMutedBrush}" FontSize="12" VerticalAlignment="Center"/><Button Grid.Column="1" Command="{Binding AddClockCommand}" Background="{DynamicResource ClockTextBrush}" Foreground="{DynamicResource ClockSurfaceBrush}" BorderThickness="0" Margin="12,0,0,0"><StackPanel Orientation="Horizontal"><controls:FluentIcon Glyph="add" Width="16" Height="16" Margin="0,0,6,0" VerticalAlignment="Center"/><TextBlock Text="추가" VerticalAlignment="Center"/></StackPanel></Button></Grid>
+                </Grid>
+              </Border>
+              <Grid Grid.Column="2"><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="16"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                <Border Style="{StaticResource Card}" Padding="20"><Grid><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                  <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="CPU" FontSize="14" VerticalAlignment="Center"/><TextBlock Grid.Column="1" Text="{Binding CpuPreviewValue}" FontFamily="{StaticResource NumberFont}" FontSize="32" FontWeight="SemiBold"/></Grid>
+                  
+                  <Grid Grid.Row="2"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="PC 전체 사용량" Style="{StaticResource MutedText}" FontSize="12" VerticalAlignment="Center"/><Button Grid.Column="1" Command="{Binding AddCpuCommand}" Margin="8,0,0,0"><StackPanel Orientation="Horizontal"><controls:FluentIcon Glyph="add" Width="16" Height="16" Margin="0,0,6,0" VerticalAlignment="Center"/><TextBlock Text="추가" VerticalAlignment="Center"/></StackPanel></Button></Grid>
+                </Grid></Border>
+                <Border Grid.Row="2" Style="{StaticResource Card}" Padding="20"><Grid><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                  <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="메모리" FontSize="14" VerticalAlignment="Center"/><TextBlock Grid.Column="1" Text="{Binding MemoryPreviewValue}" FontFamily="{StaticResource NumberFont}" FontSize="32" FontWeight="SemiBold"/></Grid>
+                  
+                  <Grid Grid.Row="2"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="{Binding MemoryPreviewCapacity}" Style="{StaticResource MutedText}" FontSize="12" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/><Button Grid.Column="1" Command="{Binding AddMemoryCommand}" Margin="8,0,0,0"><StackPanel Orientation="Horizontal"><controls:FluentIcon Glyph="add" Width="16" Height="16" Margin="0,0,6,0" VerticalAlignment="Center"/><TextBlock Text="추가" VerticalAlignment="Center"/></StackPanel></Button></Grid>
+                </Grid></Border>
+              </Grid>
+            </Grid>
+
+            <Grid Height="176" Margin="0,16,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="1.15*"/><ColumnDefinition Width="16"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+              <Border Style="{StaticResource Card}" Padding="20"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal"><controls:FluentIcon Glyph="weather_partly_cloudy_day" Foreground="{DynamicResource TextBrush}" Margin="0,0,8,0"/><TextBlock Text="날씨" FontSize="14" VerticalAlignment="Center"/><Border Background="{DynamicResource SoftAccentBrush}" CornerRadius="4" Padding="6,2" Margin="10,0,0,0"><TextBlock Text="데모" FontSize="10"/></Border></StackPanel>
+                <Grid Grid.Row="1"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel VerticalAlignment="Center"><TextBlock Text="22°" FontFamily="{StaticResource NumberFont}" FontSize="48" FontWeight="SemiBold"/><TextBlock Text="서울 · 구름 조금" Style="{StaticResource MutedText}" FontSize="12"/></StackPanel><controls:FluentIcon Grid.Column="1" Glyph="weather_partly_cloudy_day" Width="52" Height="52" Foreground="{DynamicResource TextBrush}" VerticalAlignment="Center"/></Grid>
+                <Grid Grid.Row="2"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="샘플 날씨" Style="{StaticResource MutedText}" FontSize="11" VerticalAlignment="Center"/><Button Grid.Column="1" Command="{Binding AddWeatherCommand}" Margin="8,0,0,0"><StackPanel Orientation="Horizontal"><controls:FluentIcon Glyph="add" Width="16" Height="16" Margin="0,0,6,0" VerticalAlignment="Center"/><TextBlock Text="추가" VerticalAlignment="Center"/></StackPanel></Button></Grid>
+              </Grid></Border>
+              <Border Grid.Column="2" Style="{StaticResource Card}" Padding="20"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal"><controls:FluentIcon Glyph="developer_board" Foreground="{DynamicResource TextBrush}" Margin="0,0,8,0"/><TextBlock Text="GPU" FontSize="14" VerticalAlignment="Center"/></StackPanel>
+                <Grid Grid.Row="1"><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions><TextBlock Text="{Binding GpuPreviewValue}" FontFamily="{StaticResource NumberFont}" FontSize="32" FontWeight="SemiBold" VerticalAlignment="Center"/><controls:SmoothProgressBar Grid.Row="1" TargetValue="{Binding GpuPreviewPercentage, Mode=OneWay}" Maximum="100" Height="5" BorderThickness="0" Foreground="{DynamicResource AccentBrush}" Background="{DynamicResource SoftAccentBrush}" Margin="0,0,0,14"/></Grid>
+                <Grid Grid.Row="2"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="{Binding GpuPreviewDetail}" Style="{StaticResource MutedText}" FontSize="11" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/><Button Grid.Column="1" Command="{Binding AddGpuCommand}" Margin="8,0,0,0"><StackPanel Orientation="Horizontal"><controls:FluentIcon Glyph="add" Width="16" Height="16" Margin="0,0,6,0" VerticalAlignment="Center"/><TextBlock Text="추가" VerticalAlignment="Center"/></StackPanel></Button></Grid>
+              </Grid></Border>
+            </Grid>
+          </StackPanel>
+          <StackPanel x:Name="ManagePage" Visibility="Collapsed">
+            <TextBlock Text="{Binding WidgetCount}" Style="{StaticResource MutedText}" Margin="0,0,0,12"/>
+            <StackPanel x:Name="WidgetsHost"/>
+            <TextBlock x:Name="EmptyWidgets" Text="아직 위젯이 없습니다. 라이브러리에서 첫 위젯을 추가하세요." Style="{StaticResource MutedText}" Margin="0,0,0,16"/>
+            <TextBlock Text="그룹" FontWeight="SemiBold" FontSize="18" Margin="0,20,0,12"/>
+            <Grid Margin="0,0,0,16"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBox x:Name="GroupNameInput" Text="시스템 모니터" MaxLength="60" Margin="0,0,12,0"/><Button Grid.Column="1" Click="CreateGroup_Click" Margin="0"><StackPanel Orientation="Horizontal"><controls:FluentIcon Glyph="add" Width="16" Height="16" Margin="0,0,6,0" VerticalAlignment="Center"/><TextBlock Text="그룹 만들기" VerticalAlignment="Center"/></StackPanel></Button></Grid>
+            <TextBlock x:Name="GroupEmpty" Text="그룹을 만들어 외형 설정을 함께 적용하세요." Style="{StaticResource MutedText}" FontSize="12"/><StackPanel x:Name="GroupsHost"/>
+          </StackPanel>
+          <StackPanel x:Name="SettingsPage" Visibility="Collapsed">
+            <TextBlock Text="배치" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,12"/>
+            <Border Style="{StaticResource Card}" Margin="0,0,0,24"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+              <StackPanel Margin="0,0,24,0"><TextBlock Text="Magnetic Mode" FontWeight="Medium"/></StackPanel>
+              <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center"><TextBlock Text="{Binding MagneticModeStateLabel}" Style="{StaticResource MutedText}" Width="34" VerticalAlignment="Center" FontSize="12"/><ToggleButton x:Name="MagneticModeToggle" Style="{StaticResource SwitchToggle}" IsChecked="{Binding MagneticMode, Mode=TwoWay}" AutomationProperties.Name="Magnetic Mode" ToolTip="Magnetic Mode ON/OFF"/></StackPanel>
+            </Grid></Border>
+            <TextBlock Text="기본 외형과 앱 동작" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,12"/>
+            <Border Style="{StaticResource Card}"><StackPanel x:Name="GlobalSettingsHost"/></Border>
+          </StackPanel>
+        </StackPanel>
+      </ScrollViewer>
+      <Border Grid.Row="2" BorderBrush="{DynamicResource LineBrush}" BorderThickness="0,1,0,0" Margin="0,20,0,0" Padding="0,12,0,0">
+        <Border.Style><Style TargetType="Border"><Style.Triggers><DataTrigger Binding="{Binding Status}" Value=""><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></Border.Style>
+        <TextBlock Text="{Binding Status}" Style="{StaticResource MutedText}" FontSize="11"/>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>

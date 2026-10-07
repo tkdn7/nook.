@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>Nook</AssemblyName>
+    <ApplicationIcon>Assets/nook.ico</ApplicationIcon>
+    <Version>0.6.0</Version>
+    <!-- WPF owns DPI configuration; Windows Forms is used only for NotifyIcon. -->
+    <NoWarn>$(NoWarn);WFO0003</NoWarn>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../Nook.Core/Nook.Core.csproj" /></ItemGroup>
+  <ItemGroup><Resource Include="Assets/nook.ico" /></ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets/Fonts/*.otf" />
+    <Resource Include="Assets/Fonts/*.ttf" />
+    <Content Include="Assets/Icons/*.svg" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="Assets/Icons/*.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="Assets/Fonts/*.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
