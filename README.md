@@ -1,4 +1,4 @@
-# ㅌNook 0.15.0
+# Nook 0.15.0
 
 Windows 11 x64용 WPF 위젯 프로토타입입니다. Soft Desk의 크림 `#F6F0E6`·블랙, Pretendard·Nunito Sans, Microsoft Fluent System Icons를 사용합니다.
 
