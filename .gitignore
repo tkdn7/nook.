@@ -1,0 +1,41 @@
+# Personal AI runtime and private operational knowledge (NOT shared; each env keeps its own)
+/.local/
+/.claude/
+/.codex/
+/.agents/
+/.opencode/
+/.styleseed/
+/.impeccable/
+/opencode.json
+/CLAUDE.md
+/DEEPSEEK.md
+/GEMINI.md
+/STEP.md
+/MIMO.md
+/docs/ai/
+/docs/wiki/
+/docs/design/
+/docs/AI_COLLABORATION.md
+/.tools/
+/artifacts/
+
+# Build / output junk
+.vs/
+*.user
+**/bin/
+**/obj/
+**/__pycache__/
+*.pyc
+
+# Secrets (never commit)
+.env*
+!.env.example
+!.env.sample
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local editor/runtime cache
+/docs/wiki/.obsidian/workspace*.json
+/docs/wiki/.obsidian/cache/

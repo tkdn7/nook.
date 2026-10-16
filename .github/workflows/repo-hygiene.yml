@@ -1,0 +1,26 @@
+name: sharing-hygiene
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  sharing-hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install verified Gitleaks release
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=https://github.com/gitleaks/gitleaks/releases/download/v8.24.2
+          curl --fail --location "$base/gitleaks_8.24.2_linux_x64.tar.gz" -o /tmp/gitleaks.tar.gz
+          curl --fail --location "$base/gitleaks_8.24.2_checksums.txt" -o /tmp/checksums.txt
+          expected=$(awk '$2 == "gitleaks_8.24.2_linux_x64.tar.gz" {print $1}' /tmp/checksums.txt)
+          test -n "$expected"
+          echo "$expected  /tmp/gitleaks.tar.gz" | sha256sum --check
+          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
+          echo /tmp >> "$GITHUB_PATH"
+      - name: Inspect complete reachable history
+        run: python3 scripts/share_guard.py history

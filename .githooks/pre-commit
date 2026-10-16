@@ -1,0 +1,2 @@
+#!/bin/sh
+exec python scripts/share_guard.py staged

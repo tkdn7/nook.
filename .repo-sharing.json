@@ -1,0 +1,7 @@
+{
+  "private_roots": [".local", ".claude", ".codex", ".agents", ".opencode", ".styleseed", ".impeccable", "docs/ai", "docs/wiki", "docs/design", "artifacts", ".tools"],
+  "private_names": ["opencode.json", "CLAUDE.md", "DEEPSEEK.md", "GEMINI.md", "STEP.md", "MIMO.md", "settings.local.json", "AI_COLLABORATION.md"],
+  "private_extensions": [".pem", ".key", ".p12", ".pfx"],
+  "shared_design_location": "docs/design-system",
+  "shared_knowledge_location": "docs/knowledge"
+}
